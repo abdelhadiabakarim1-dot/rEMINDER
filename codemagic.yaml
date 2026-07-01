@@ -1,0 +1,48 @@
+# Codemagic CI/CD configuration for Quick Reminder Flutter app
+workflows:
+  flutter-app-build:
+    name: Quick Reminder Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+        - pull_request
+      branches:
+        - main
+        - master
+        - dev
+    scripts:
+      - name: Initialize project
+        script: |
+          flutter channel stable
+          flutter upgrade --force
+      - name: Get Flutter dependencies
+        script: |
+          flutter pub get
+      - name: Run analyzer and linter
+        script: |
+          flutter analyze
+      - name: Run unit tests
+        script: |
+          flutter test
+      - name: Build Android APK (Release)
+        script: |
+          flutter build apk --release
+      - name: Build iOS App (No-codesign)
+        script: |
+          flutter build ios --release --no-codesign
+    artifacts:
+      - build/app/outputs/flutter-apk/*-release.apk
+      - build/ios/iphoneos/*.app
+    publishing:
+      email:
+        recipients:
+          - abdelhadiabakarim1@gmail.com
+        notify:
+          success: true
+          failure: true
