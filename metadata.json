@@ -1,6 +1,6 @@
 {
   "name": "Quick Reminder",
-  "description": "A visually polished, ultra-fast local reminder and task tracking application built with SQLite persistence.",
+  "description": "A visually polished, ultra-fast local reminder and task tracking application built with Flutter.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
